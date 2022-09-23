@@ -154,10 +154,10 @@
 	\fancyhead{}
 	\fancyfoot{}
 	\fancyfoot[L]{
-		\thepage
+		\textsc{\MakeTextLowercase{\g_lnotes_title_tl{}}}
 	}
 	\fancyfoot[R]{
-		\textsc{\MakeTextLowercase{\g_lnotes_title_tl{}}}
+		\thepage
 	}
 	\fancyhead[C]{
 		\textsc{\MakeTextLowercase{
