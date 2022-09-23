@@ -8,8 +8,8 @@
 
 %% Define Package Metadata
 \tl_const:Nn \c__coursework_packagename_tl {coursework}
-\tl_const:Nn \c__coursework_packagedate_tl {2019/07/21}
-\tl_const:Nn \c__coursework_packageversion_tl {2019.3}
+\tl_const:Nn \c__coursework_packagedate_tl {2022/09/22}
+\tl_const:Nn \c__coursework_packageversion_tl {2022.9}
 \tl_const:Nn \c__coursework_packagedescription_tl {A~ LaTeX3~ package~ to~ provide~ common~ functionality~ for~ the~ various~ coursework~ document~ classes.}
 
 \ProvidesExplPackage{\c__coursework_packagename_tl}         % Name
@@ -20,13 +20,16 @@
 %% Define Package Options
 \bool_new:N \l__coursework_loadcode_bool
 \bool_new:N \l__coursework_loaddiag_bool
+\bool_new:N \l__coursework_physics_bool
 \bool_new:N \l__coursework_numbertheorems_bool
 \bool_gset_false:N \l__coursework_loadcode_bool
 \bool_gset_false:N \l__coursework_loaddiag_bool
+\bool_gset_false:N \l__coursework_physics_bool
 \bool_gset_true:N \l__coursework_numbertheorems_bool
 
 \DeclareOption{code}{ \bool_gset_true:N \l__coursework_loadcode_bool }
 \DeclareOption{diagram}{ \bool_gset_true:N \l__coursework_loaddiag_bool }
+\DeclareOption{phys}{ \bool_gset_true:N \l__coursework_physics_bool }
 \DeclareOption{nothmnum}{ \bool_gset_false:N \l__coursework_numbertheorems_bool }
 
 \ProcessOptions\relax
@@ -59,14 +62,14 @@
 \RequirePackage{thmtools}
 \RequirePackage{mathtools}
 \RequirePackage{stmaryrd}
+\RequirePackage{dsfont}
 
 % Physics
-\RequirePackage{physics}
-\RequirePackage{siunitx}
-\RequirePackage{tensor}
-
-% Linguistics
-
+\bool_if:NT \l__coursework_loadcode_bool {
+	\RequirePackage{physics}
+	\RequirePackage{siunitx}
+	\RequirePackage{tensor}
+}
 
 % Code
 \bool_if:NT \l__coursework_loadcode_bool {
@@ -99,9 +102,9 @@
 
 \bool_if:NT \l__coursework_loaddiag_bool {
 	\RequirePackage{tikz}
-	\RequirePackage{pgfplots}
-	\RequirePackage[american, siunitx]{circuitikz}
-	\RequirePackage{chemfig}
+	% \RequirePackage{pgfplots}
+	% \RequirePackage[american, siunitx]{circuitikz}
+	% \RequirePackage{chemfig}
 
 	\ctikzset{bipoles/thickness=1}
 	\pgfplotsset{compat=1.16}
@@ -158,35 +161,6 @@
 	urlcolor = linkblue
 }
 
-%% Define Custom Macros
-% Linguistics
-\let\orthfont\relax
-\makeatletter
-\def\ipa{\@ifstar\@ipa\@@ipa}
-\def\@ipa#1{\text{*{\ipafont #1}}}
-\def\@@ipa#1{\text{\ipafont #1}}
-\def\phon{\@ifstar\@phon\@@phon}
-\def\@phon/#1/{\ensuremath{\left/\text{\ipa*{#1}}\right/}}
-\def\@@phon/#1/{\ensuremath{\left/\text{\ipa{#1}}\right/}}
-\def\allo{\@ifstar\@allo\@@allo}
-\def\@allo[#1]{\ensuremath{\left[\text{\ipa*{#1}}\right]}}
-\def\@@allo[#1]{\ensuremath{\left[\text{\ipa{#1}}\right]}}
-\def\orth{\@ifstar\@orth\@@orth}
-\def\@orth#1{\ensuremath{\left\langle\text{*{\orthfont #1}}\right\rangle}}
-\def\@@orth#1{\ensuremath{\left\langle\text{{\orthfont #1}}\right\rangle}}
-\def\lex#1{`#1'}
-\makeatother
-\NewDocumentCommand\lem{ mo }{
-	\IfValueTF{#2}{
-		\emph{#1}~\lex{#2}
-	}{
-		\emph{#1}
-	}
-}
-
-\let\denfont\relax
-\NewDocumentCommand{\den}{ O{}m }{\ensuremath{\left\llbracket\text{\denfont #2}\right\rrbracket^{#1}}}
-
 
 %%% Mathematics
 %% Single Character Commands
@@ -195,7 +169,7 @@
 	\ifmmode \mathcal{O} \else \oldO \fi }  % Asymptotic upper bound in math mode, Ø otherwise
 
 % 'Blackboard bold characters'
-\NewDocumentCommand{\field}{ m }{\mathbf{#1}} % Styling for fields, etc
+\NewDocumentCommand{\field}{ m }{\mathbb{#1}} % Styling for fields, etc
 \DeclareDocumentCommand{\C}{ }{\field{C}} % Complex numbers; In XeLaTeX this is already defined
 \NewDocumentCommand{\E}{ }{\field{E}}  % Expected value
 \NewDocumentCommand{\F}{ }{\field{F}}  % Finite field
@@ -203,6 +177,7 @@
 \NewDocumentCommand{\Q}{ }{\field{Q}}  % Rational numbers
 \NewDocumentCommand{\R}{ }{\field{R}}  % Real Numbers
 \NewDocumentCommand{\Z}{ }{\field{Z}}  % Integers
+\NewDocumentCommand{\1}{ }{\mathds{1}} % Indicator Variable
 
 % Operators and named objects
 \NewDocumentCommand{\collection}{ m }{\mathrm{#1}} % Styling for collections
@@ -353,9 +328,9 @@
 
 % Declaration of theorem styles
 \declaretheoremstyle[
-	spaceabove=0.5\baselineskip, spacebelow=0em,
+	spaceabove=0.5\baselineskip, spacebelow=0.25\baselineskip,
 	headfont=\normalfont\bfseries,
-	bodyfont=\normalfont\itshape
+	bodyfont=\normalfont\itshape,
 ]{lemma}
 \declaretheoremstyle[
 	spaceabove=0.5\baselineskip, spacebelow=0em,
@@ -395,6 +370,8 @@
 % Remark-style
 \declaretheorem[style=remark,postheadhook=\leavevmode,title={Remark},numbered=no]{cremarkun}
 \declaretheorem[style=remark,postheadhook=\leavevmode,title={Remark},numberwithin=section]{cremark}
+\declaretheorem[style=remark,postheadhook=\leavevmode,title={Observation},numbered=no]{cobservationun}
+\declaretheorem[style=remark,postheadhook=\leavevmode,title={Observation},numberwithin=section]{cobservation}
 \declaretheorem[style=remark,postheadhook=\leavevmode,title={Warning},numbered=no]{cwarningun}
 \declaretheorem[style=remark,postheadhook=\leavevmode,title={Warning},numberwithin=section]{cwarning}
 \declaretheorem[style=remark,postheadhook=\leavevmode,title={Claim},numbered=no]{cclaimun}
@@ -436,8 +413,8 @@
 % Create environment wrappers for each theorem
 \NewDocumentEnvironment{definition}{o}{
 	% Pre Content
-	\begin{adjustwidth}{1cm}{1cm}
-		\vspace*{-\baselineskip} % adjustwidth adds extra space
+	% \begin{adjustwidth}{1cm}{1cm}
+		% \vspace*{-\baselineskip} % adjustwidth adds extra space
 		\IfValueTF{#1}{
 			\begin{cdefinition}[#1]
 			\leavevmode\note{#1}\leavevmode\ignorespaces
@@ -447,7 +424,7 @@
 }{
 	% Post Content
 		\end{cdefinition}
-	\end{adjustwidth}
+	% \end{adjustwidth}
 }
 
 \NewDocumentEnvironment{notation}{o}{
@@ -545,6 +522,22 @@
 		\begin{cremarkun}
 }{
 		\end{cremarkun}
+	\end{flagbox}
+}
+
+\NewDocumentEnvironment{observation}{ } {
+	\begin{flagbox}{grey}
+		\begin{cobservation}
+}{
+		\end{cobservation}
+	\end{flagbox}
+}
+
+\NewDocumentEnvironment{observation*}{ } {
+	\begin{flagbox}{grey}
+		\begin{cobservationun}
+}{
+		\end{cobservationun}
 	\end{flagbox}
 }
 
