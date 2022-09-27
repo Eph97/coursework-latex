@@ -51,8 +51,8 @@
 
 % Text Formatting (excluding fonts)
 \RequirePackage[inline]{enumitem} % customize lists
-\RequirePackage{booktabs} % style tables
-\RequirePackage{tabularx} % full-width tables
+\RequirePackage{booktabs}         % style tables
+\RequirePackage{tabularx}         % full-width tables
 \RequirePackage[labelfont=bf]{caption}
 
 % Mathematics
@@ -134,7 +134,7 @@
 
 	\let\ipafont\relax
 
-	\NewDocumentCommand\setipafont{ m } { 
+	\NewDocumentCommand\setipafont{ m } {
 		\renewfontfamily\ipafont{#1}
 	}
 \fi
@@ -170,14 +170,14 @@
 
 % 'Blackboard bold characters'
 \NewDocumentCommand{\field}{ m }{\mathbb{#1}} % Styling for fields, etc
-\DeclareDocumentCommand{\C}{ }{\field{C}} % Complex numbers; In XeLaTeX this is already defined
-\NewDocumentCommand{\E}{ }{\field{E}}  % Expected value
-\NewDocumentCommand{\F}{ }{\field{F}}  % Finite field
-\NewDocumentCommand{\N}{ }{\field{N}}  % Natural numbers
-\NewDocumentCommand{\Q}{ }{\field{Q}}  % Rational numbers
-\NewDocumentCommand{\R}{ }{\field{R}}  % Real Numbers
-\NewDocumentCommand{\Z}{ }{\field{Z}}  % Integers
-\NewDocumentCommand{\1}{ }{\mathds{1}} % Indicator Variable
+\DeclareDocumentCommand{\C}{ }{\field{C}}     % Complex numbers; In XeLaTeX this is already defined
+\NewDocumentCommand{\E}{ }{\field{E}}         % Expected value
+\NewDocumentCommand{\F}{ }{\field{F}}         % Finite field
+\NewDocumentCommand{\N}{ }{\field{N}}         % Natural numbers
+\NewDocumentCommand{\Q}{ }{\field{Q}}         % Rational numbers
+\NewDocumentCommand{\R}{ }{\field{R}}         % Real Numbers
+\NewDocumentCommand{\Z}{ }{\field{Z}}         % Integers
+\NewDocumentCommand{\1}{ }{\mathds{1}}        % Indicator Variable
 
 % Operators and named objects
 \NewDocumentCommand{\collection}{ m }{\mathrm{#1}} % Styling for collections
@@ -192,29 +192,29 @@
 
 % Morphisms, functions, etc
 \NewDocumentCommand{\map}{ m }{\mathrm{#1}} % Styling for mappings
-\DeclareMathOperator{\lcm}{\map{lcm}}   % Least Common Multiple
-\DeclareMathOperator{\cis}{\map{cis}}   % cos + i sin
-\DeclareMathOperator{\id}{\map{id}}     % Identity morphism
-\DeclareMathOperator{\Char}{\map{char}} % Characteristic of a field, or set of characteristic subgroups
+\DeclareMathOperator{\lcm}{\map{lcm}}       % Least Common Multiple
+\DeclareMathOperator{\cis}{\map{cis}}       % cos + i sin
+\DeclareMathOperator{\id}{\map{id}}         % Identity morphism
+\DeclareMathOperator{\Char}{\map{char}}     % Characteristic of a field, or set of characteristic subgroups
 
 % Categories
 \NewDocumentCommand{\category}{ m }{\mathsf{#1}} % Styling for categories
-\DeclareMathOperator{\Set}{\category{Set}} % Category of sets
-\DeclareMathOperator{\Group}{\category{Group}} % Category of groups
-\DeclareMathOperator{\Grp}{\category{Grp}} % Category of grps
-\DeclareMathOperator{\Vect}{\category{Vect}} % Category of vector spaces
-\DeclareMathOperator{\Ab}{\category{Ab}} % Category of abelian groups
+\DeclareMathOperator{\Set}{\category{Set}}       % Category of sets
+\DeclareMathOperator{\Group}{\category{Group}}   % Category of groups
+\DeclareMathOperator{\Grp}{\category{Grp}}       % Category of grps
+\DeclareMathOperator{\Vect}{\category{Vect}}     % Category of vector spaces
+\DeclareMathOperator{\Ab}{\category{Ab}}         % Category of abelian groups
 \let\Top\relax
-\DeclareMathOperator{\Top}{\category{Top}} % Category of topological spaces
+\DeclareMathOperator{\Top}{\category{Top}}       % Category of topological spaces
 
 % Arrows and Mappings
 \NewDocumentCommand{\bijects}{ }{\lhook\joinrel\twoheadrightarrow} % Bijective arrow
-\NewDocumentCommand{\surjects}{ }{\twoheadrightarrow} % Surjective arrow
-\NewDocumentCommand{\injects}{ }{\lhook\joinrel\rightarrow} % Injective arrow
-\NewDocumentCommand{\onto}{ }{\surjects} % Mirrors the 'A \to B' syntax
-\NewDocumentCommand{\into}{ }{\injects}  % Mirrors the 'A \to B' syntax
-\NewDocumentCommand{\isomap}{ }{\stackrel{\sim}{\to}} % Isometric arrow
-\NewDocumentCommand{\parto}{ } {\nrightarrow} % Partial-to, a partial function
+\NewDocumentCommand{\surjects}{ }{\twoheadrightarrow}              % Surjective arrow
+\NewDocumentCommand{\injects}{ }{\lhook\joinrel\rightarrow}        % Injective arrow
+\NewDocumentCommand{\onto}{ }{\surjects}                           % Mirrors the 'A \to B' syntax
+\NewDocumentCommand{\into}{ }{\injects}                            % Mirrors the 'A \to B' syntax
+\NewDocumentCommand{\isomap}{ }{\stackrel{\sim}{\to}}              % Isometric arrow
+\NewDocumentCommand{\parto}{ } {\nrightarrow}                      % Partial-to, a partial function
 \NewDocumentCommand{\semicolon}{ }
     {\nobreak\mskip2mu\mathpunct{}\nonscript\mkern-\thinmuskip{;}\mskip6muplus1mu\relax} % Matches the spacing of \colon
 
@@ -232,7 +232,7 @@
 % Delimited Expressions
 \NewDocumentCommand{\floor}{ m }{\left\lfloor #1 \right\rfloor} % Floor
 
-\RenewDocumentCommand\qedsymbol{ } { 
+\RenewDocumentCommand\qedsymbol{ } {
 	\ifPDFTeX
 		$\blacksquare$
 	\else
@@ -282,14 +282,14 @@
 	}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%                           %%%
 %%% Theorem-like Environments %%%
 %%%                           %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Theorems et al. are important parts of any
-% mathematical document and must have a 
+% mathematical document and must have a
 % cohesive visual identity. As such, we define
 % several realated "theorem" styles to make this
 % visual identity and distinction clear.
@@ -304,7 +304,7 @@
 %
 % (2) Remark style
 %     Unlike theorems, remarks are meant to be clearly
-%     separated from the rest of the text. They are set 
+%     separated from the rest of the text. They are set
 %     in colored boxes with a thick left edge. The lack
 %     of a top or bottom border indicates that remarks
 %     cannot stand on their own; they must be connected
@@ -343,10 +343,10 @@
 	headfont=\normalfont\bfseries,
 	bodyfont=\normalfont,
 	spaceabove=0em, spacebelow=0em,
-]{definition} 
+]{definition}
 
 
-% Declaration of various theorems 
+% Declaration of various theorems
 % Lemma-style
 \declaretheorem[style=lemma, numberwithin=section]{lemma}
 \declaretheorem[style=lemma, numbered=no, name={Lemma}]{lemma*}
@@ -389,6 +389,8 @@
 \definecolor{borderred}      {RGB}{244, 92 , 66 }
 \definecolor{backgroundgreen}{RGB}{244, 255, 234}
 \definecolor{bordergreen}    {RGB}{67,  117, 21 }
+\definecolor{backgroundteal} {RGB}{234, 254, 254}
+\definecolor{borderteal}     {RGB}{0,   128, 128}
 
 \DeclareTColorBox{edgebox}{ m }{ % Problem, exercise, example
 	boxrule = 0.3pt,
@@ -413,8 +415,8 @@
 % Create environment wrappers for each theorem
 \NewDocumentEnvironment{definition}{o}{
 	% Pre Content
-	% \begin{adjustwidth}{1cm}{1cm}
-		% \vspace*{-\baselineskip} % adjustwidth adds extra space
+	\begin{adjustwidth}{0.5cm}{0.5cm}
+		\vspace*{-0.5\baselineskip} % adjustwidth adds extra space
 		\IfValueTF{#1}{
 			\begin{cdefinition}[#1]
 			\leavevmode\note{#1}\leavevmode\ignorespaces
@@ -424,24 +426,40 @@
 }{
 	% Post Content
 		\end{cdefinition}
-	% \end{adjustwidth}
+	\end{adjustwidth}
 }
 
+% \NewDocumentEnvironment{notation}{o}{
+% 	% Pre Content
+% 	\begin{adjustwidth}{1cm}{1cm}
+% 		\vspace*{-\baselineskip} % adjustwidth adds extra space
+% 		\IfValueTF{#1}{
+% 			\begin{cnotation}[#1]
+% 			\leavevmode\note{#1}\leavevmode\ignorespaces
+% 		}{
+% 			\begin{cnotation}
+% 		}
+%
+% }{
+% 	% Post Content
+% 		\end{cnotation}
+% 	\end{adjustwidth}
+% }
+
 \NewDocumentEnvironment{notation}{o}{
+	\begin{flagbox}{teal}
 	% Pre Content
-	\begin{adjustwidth}{1cm}{1cm}
-		\vspace*{-\baselineskip} % adjustwidth adds extra space
 		\IfValueTF{#1}{
 			\begin{cnotation}[#1]
 			\leavevmode\note{#1}\leavevmode\ignorespaces
 		}{
 			\begin{cnotation}
 		}
-		
+
 }{
 	% Post Content
 		\end{cnotation}
-	\end{adjustwidth}
+	\end{flagbox}
 }
 
 \NewDocumentEnvironment{abuse}{o}{
@@ -454,7 +472,7 @@
 		}{
 			\begin{cabuse}
 		}
-		
+
 }{
 	% Post Content
 		\end{cabuse}
@@ -494,7 +512,7 @@
 }
 
 \NewDocumentEnvironment{example}{ o } {
-	\begin{edgebox}{gold}
+	\begin{edgebox}{grey}
 		\ifXeTeX % Correct margin note spacing
 			\edef\marginnotetextwidth{11.8966390917cm}
 		\fi
