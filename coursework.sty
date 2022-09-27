@@ -429,6 +429,7 @@
 	\end{adjustwidth}
 }
 
+% Old Definitions 
 % \NewDocumentEnvironment{notation}{o}{
 % 	% Pre Content
 % 	\begin{adjustwidth}{1cm}{1cm}
@@ -443,6 +444,23 @@
 % }{
 % 	% Post Content
 % 		\end{cnotation}
+% 	\end{adjustwidth}
+% }
+
+% \NewDocumentEnvironment{abuse}{o}{
+% 	% Pre Content
+% 	\begin{adjustwidth}{1cm}{1cm}
+% 		\vspace*{-\baselineskip} % adjustwidth adds extra space
+% 		\IfValueTF{#1}{
+% 			\begin{cabuse}[#1]
+% 			\leavevmode\note{#1}\leavevmode\ignorespaces
+% 		}{
+% 			\begin{cabuse}
+% 		}
+%
+% }{
+% 	% Post Content
+% 		\end{cabuse}
 % 	\end{adjustwidth}
 % }
 
@@ -463,9 +481,8 @@
 }
 
 \NewDocumentEnvironment{abuse}{o}{
+	\begin{flagbox}{teal}
 	% Pre Content
-	\begin{adjustwidth}{1cm}{1cm}
-		\vspace*{-\baselineskip} % adjustwidth adds extra space
 		\IfValueTF{#1}{
 			\begin{cabuse}[#1]
 			\leavevmode\note{#1}\leavevmode\ignorespaces
@@ -476,8 +493,9 @@
 }{
 	% Post Content
 		\end{cabuse}
-	\end{adjustwidth}
+	\end{flagbox}
 }
+
 
 \NewDocumentEnvironment{problem}{ o } {
 	\begin{edgebox}{grey}
@@ -496,7 +514,7 @@
 }
 
 \NewDocumentEnvironment{exercise}{ o } {
-	\begin{edgebox}{grey}
+	\begin{edgebox}{gold}
 		\ifXeTeX % Correct margin note spacing
 			\edef\marginnotetextwidth{11.8966390917cm}
 		\fi
